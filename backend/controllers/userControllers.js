@@ -5,11 +5,13 @@ const { Donation, Project } = require("../models");
 const User = require("../models/userModel");
 const sendEmail = require("../services/emailService");
 const AWS = require("aws-sdk");
+const dotenv = require("dotenv");
+dotenv.config();
 
 function uploadToS3(data, fileName) {
-  const BUCKET_NAME = "expensetracker143";
-  const IAM_USER_KEY = "AKIAUV2FUZVPZR2BV7MN";
-  const IAM_USER_SECRET = "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";
+  const BUCKET_NAME = process.env.BUCKET_NAME;
+  const IAM_USER_KEY = process.env.IAM_USER_KEY;
+  const IAM_USER_SECRET = process.env.IAM_USER_SECRET;
 
   let s3bucket = new AWS.S3({
     accessKeyId: IAM_USER_KEY,
