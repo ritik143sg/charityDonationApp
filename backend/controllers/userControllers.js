@@ -4,6 +4,37 @@ const { getToken } = require("../middleware/jwt");
 const { Donation, Project } = require("../models");
 const User = require("../models/userModel");
 const sendEmail = require("../services/emailService");
+const AWS = require("aws-sdk");
+
+function uploadToS3(data, fileName) {
+  const BUCKET_NAME = "expensetracker143";
+  const IAM_USER_KEY = "AKIAUV2FUZVPZR2BV7MN";
+  const IAM_USER_SECRET = "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";
+
+  let s3bucket = new AWS.S3({
+    accessKeyId: IAM_USER_KEY,
+    secretAccessKey: IAM_USER_SECRET,
+  });
+
+  const params = {
+    Bucket: BUCKET_NAME,
+    Key: fileName,
+    Body: data,
+    ACL: "public-read",
+  };
+
+  return new Promise((resolve, reject) => {
+    s3bucket.upload(params, (err, s3response) => {
+      if (err) {
+        console.log("Error uploading to S3", err);
+        reject(err);
+      } else {
+        console.log("Upload Success", s3response);
+        resolve(s3response.Location);
+      }
+    });
+  });
+}
 
 const authentication = async (req, res) => {
   const user = req.body;
@@ -174,6 +205,33 @@ const searchProject = async (req, res) => {
   }
 };
 
+const fileDownload = async (req, res) => {
+  const projectId = req.params.id;
+  const user = req.user;
+
+  try {
+    const donation = await Donation.findAll({
+      where: { UserId: user.id },
+      order: [["createdAt", "DESC"]],
+    });
+
+    const stringDonation = JSON.stringify(donation);
+    const fileName = `Donation_${user.id}_${Date.now()}.txt`; // unique filename
+    const fileUrl = await uploadToS3(stringDonation, fileName); // await here
+
+    res.status(201).json({
+      msg: "File retrieved",
+      donation: donation,
+      fileUrl: fileUrl,
+    });
+  } catch (error) {
+    console.error("getExpenseFile error:", error);
+    res
+      .status(500)
+      .json({ msg: "Expense fetching failed", error: error.message });
+  }
+};
+
 module.exports = {
   authentication,
   register,
@@ -182,4 +240,5 @@ module.exports = {
   updatePassword,
   updateProfilePic,
   searchProject,
+  fileDownload,
 };

@@ -5,6 +5,7 @@ const {
   donationHistory,
   updatePassword,
   searchProject,
+  fileDownload,
 } = require("../controllers/userControllers");
 const { varifyToken } = require("../middleware/jwt");
 
@@ -13,7 +14,7 @@ const userRouter = express.Router();
 userRouter.post("/authentication", authentication);
 userRouter.post("/register", register);
 userRouter.get("/donationhistory", varifyToken, donationHistory);
-// userRouter.post("/donation/:projectId", varifyToken, donation);
+userRouter.get("/download/", varifyToken, fileDownload);
 userRouter.patch("/updatePassword", varifyToken, updatePassword);
 userRouter.get("/search", varifyToken, searchProject);
 

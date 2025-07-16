@@ -1,4 +1,5 @@
 const { Donation, User } = require("../models");
+const sendEmail = require("../services/emailService");
 const { createOrder, getPaymentStatus } = require("../services/payment");
 const sequelize = require("../utils/DB/connectDB");
 
@@ -41,25 +42,22 @@ const getSesssionId = async (req, res) => {
 const paymentStatus = async (req, res) => {
   const id = req.params.id;
   console.log(id);
-  //  const transaction = await sequelize.transaction();
 
   try {
     const response = await getPaymentStatus(id);
-    // console.log(response);
-    //const transaction = sequelize.transaction();
-    const donation = await Donation.update(
-      { status: response },
-      { where: { paymentId: id } }
-    );
 
-    // const DBuser = await User.findByPk(1);
+    await Donation.update({ status: response }, { where: { paymentId: id } });
 
-    // await DBuser.addDonation(donation);
+    const donation = await Donation.findOne({
+      where: {
+        paymentId: id,
+      },
+    });
 
-    // sendEmail({ user: user, money: money });
+    const user = await User.findByPk(donation.UserId);
 
-    // const updatedOrder = await Order.findOne({ where:    { OrderId: id } });
-    // (await transaction).commit();
+    sendEmail({ user: user, money: donation.money });
+
     res.send(`<body class="bg-light d-flex justify-content-center align-items-center vh-100 ">
         <div class="text-center">
           <h1 class="text-success display-4 fw-bold">Payment Successful!</h1>
@@ -71,7 +69,6 @@ const paymentStatus = async (req, res) => {
         
       </body>`);
   } catch (err) {
-    //transaction.rollback();
     console.error("Fetch payment error:", err);
   }
 };

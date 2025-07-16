@@ -14,7 +14,7 @@ apiKey.apiKey = process.env.GMAILKEY;
 const sendEmail = async (req) => {
   //   const user = req.body;
 
-  console.log("Email11111111111111111", req.money.money);
+  console.log("Email11111111111111111", req.user.email);
 
   try {
     // Step 3: Instantiate the API
@@ -28,7 +28,7 @@ const sendEmail = async (req) => {
 
     const receivers = [
       {
-        email: req.user.email, // Receiver's email from request body
+        email: "ritiksg143@gmail.com", // Receiver's email from request body
       },
     ];
 
@@ -42,7 +42,7 @@ const sendEmail = async (req) => {
       htmlContent: `
         <html>
           <body>
-            <h1>Hello, ${req.user.username}, Thanks To help us with your Donation. Amount = ₹ ${req.money.money}</h1>
+            <h1>Hello, ${req.user.username}, Thanks To help us with your Donation. Amount = ₹ ${req.money}</h1>
             <p>This is a test transactional email sent via the Brevo API.</p>
           </body>
         </html>
