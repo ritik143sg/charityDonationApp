@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment</title>
+  </head>
+  <body>
+    <div style="justify-content: center; align-items: center; display: flex">
+      <button
+        id="payment"
+        onclick="initiatePayment()"
+        style="
+          background-color: rgb(89, 184, 176);
+          color: white;
+          padding: 10px;
+          border: none;
+        "
+      >
+        Payment
+      </button>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+
+  <script>
+    const initiatePayment = async () => {
+      const projectId = 1;
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/payment/sessionId/${projectId}?money=${501}`,
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJhbWl0c2cxNDMiLCJlbWFpbCI6ImFtaXRzZzE0M0BnbWFpbC5jb20iLCJpYXQiOjE3NTI2Njg2MTcsImV4cCI6MTc1MzEwMDYxN30.wKxwLEP_YSvY-ccfTrq9dV_DDN1V62D3xWBl0AUMj30`,
+            },
+          }
+        );
+
+        const paymentSessionId = res.data.data.id;
+        console.log(paymentSessionId);
+
+        const cashfree = await Cashfree({
+          mode: "sandbox",
+        });
+
+        await cashfree.checkout({
+          paymentSessionId,
+          redirectTarget: "_self",
+        });
+      } catch (err) {
+        console.error("Cashfree checkout error:", err);
+      }
+    };
+  </script>
+
+  <script src="payment.js"></script>
+</html>
