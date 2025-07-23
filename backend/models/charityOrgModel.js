@@ -8,7 +8,7 @@ const CharityOrg = sequelize.define("CharityOrg", {
     allowNull: false,
     type: DataTypes.INTEGER,
   },
-  orgName: {
+  username: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -16,7 +16,7 @@ const CharityOrg = sequelize.define("CharityOrg", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  orgMail: {
+  email: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -37,6 +37,10 @@ const CharityOrg = sequelize.define("CharityOrg", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  // phone: {
+  //   type: DataTypes.STRING,
+  //   allowNull: false,
+  // },
 });
 
 module.exports = CharityOrg;

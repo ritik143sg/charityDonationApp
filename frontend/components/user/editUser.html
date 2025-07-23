@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="editUser.css" />
+    <title>Charity App</title>
+  </head>
+  <body>
+    <form onsubmit="handelSubmit(event)">
+      <h1>Change Password</h1>
+      <label for="oldPassword">OldPassword: </label>
+      <input type="password" name="oldPassword" id="oldPassword" required />
+      <br /><br />
+      <label for="newPassword">NewPassword: </label>
+      <input type="password" name="newPassword" id="newPassword" required />
+      <br /><br />
+      <label for="reNewPassword">Re-NewPassword: </label>
+      <input type="password" name="reNewPassword" id="reNewPassword" required />
+      <br /><br />
+      <button>Submit</button>
+    </form>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="editUser.js"></script>
+</html>

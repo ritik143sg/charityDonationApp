@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  color: #2c3e50;
+}
+
+h1 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #2d3436;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.section {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background-color: #ecf0f1;
+  margin-bottom: 12px;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:first-child {
+  background-color: #27ae60; /* Approve */
+}
+
+button:first-child:hover {
+  background-color: #1e8449;
+}
+
+button:last-child {
+  background-color: #e74c3c; /* Reject */
+}
+
+button:last-child:hover {
+  background-color: #c0392b;
+}

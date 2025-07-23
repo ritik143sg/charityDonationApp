@@ -9,6 +9,7 @@ const {
   getAllOrgs,
   authOrgs,
   getAllProject,
+  editReport,
 } = require("../controllers/charityControllers");
 
 const charityRouter = express.Router();
@@ -21,5 +22,7 @@ charityRouter.get("/projectinfo/:id", projectInfo);
 charityRouter.get("/charityinfo/:id", charityInfo);
 charityRouter.get("/getAllOrgs", getAllOrgs);
 charityRouter.get("/getAllProjects/:orgId", getAllProject);
+
+charityRouter.patch("/editReport/:id", editReport);
 
 module.exports = charityRouter;

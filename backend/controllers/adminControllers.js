@@ -33,7 +33,7 @@ const authenticationAdmin = async (req, res) => {
 
     res.status(200).json({
       msg: "Admin LogIn",
-      token: await getToken(DBuser),
+      token: await getToken(DBuser, "admin"),
     });
   } catch (error) {
     res.status(500).json({
@@ -231,6 +231,22 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const getAllAdmin = async (req, res) => {
+  try {
+    const admin = await Admin.findAll();
+
+    res.status(200).json({
+      msg: "get all admin",
+      admins: admin,
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: "error all admin",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   authenticationAdmin,
   registerAdmin,
@@ -239,4 +255,5 @@ module.exports = {
   deleteOrg,
   deleteProject,
   deleteUser,
+  getAllAdmin,
 };

@@ -3,22 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="payment.css" />
     <title>Payment</title>
   </head>
   <body>
-    <div style="justify-content: center; align-items: center; display: flex">
-      <button
-        id="payment"
-        onclick="initiatePayment()"
-        style="
-          background-color: rgb(89, 184, 176);
-          color: white;
-          padding: 10px;
-          border: none;
-        "
-      >
-        Payment
-      </button>
+    <div class="container">
+      <h1 style="color: rgb(130, 241, 241)">Donation</h1>
+      <label for="amount">Amount: </label>
+      <input type="number" name="amount" id="amount" />
+      <button id="payment" onclick="initiatePayment()">Payment</button>
     </div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -26,13 +19,16 @@
 
   <script>
     const initiatePayment = async () => {
-      const projectId = 1;
+      const token = JSON.parse(localStorage.getItem("token"));
+      const amount = document.getElementById("amount");
+
+      const projectId = JSON.parse(localStorage.getItem("projectId"));
       try {
         const res = await axios.get(
-          `http://localhost:5000/payment/sessionId/${projectId}?money=${501}`,
+          `http://localhost:5000/payment/sessionId/${projectId}?money=${amount.value}`,
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJhbWl0c2cxNDMiLCJlbWFpbCI6ImFtaXRzZzE0M0BnbWFpbC5jb20iLCJpYXQiOjE3NTI2Njg2MTcsImV4cCI6MTc1MzEwMDYxN30.wKxwLEP_YSvY-ccfTrq9dV_DDN1V62D3xWBl0AUMj30`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );

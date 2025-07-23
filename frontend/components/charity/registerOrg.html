@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="registerOrg.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div style="margin-top: 100px">
+      <h1>Register orgs</h1>
+      <form
+        action=""
+        onsubmit="handleSubmit(event)"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <label for="orgname">OrgName: </label>
+        <input type="text" name="orgname" id="orgname" required />
+
+        <label for="Orgemail">OrgEmail: </label>
+        <input type="email" name="orgemail" id="orgemail" required />
+
+        <label for="password">Password: </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          autocomplete="new-password"
+          required
+        />
+
+        <label for="phone">Phone: </label>
+        <input type="tel" name="phone" id="phone" required />
+
+        <label for="mission">Mission: </label>
+        <input type="text" name="mission" id="mission" required />
+
+        <label for="goals">Goals: </label>
+        <input type="text" name="goals" id="goals" required />
+
+        <label for="office">Office: </label>
+        <input type="text" name="office" id="office" required />
+
+        <button>Sign-up</button>
+        <a href="./orgLogin.html">Login-Orgs</a>
+      </form>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="registerOrg.js"></script>
+</html>

@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e3f2fd;
+  padding: 20px;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #1565c0;
+  margin-bottom: 30px;
+}
+
+#donation {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#donation li {
+  background-color: #ffffff;
+  border-left: 6px solid #4caf50; /* success by default */
+  padding: 16px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#donation li:hover {
+  background-color: #f0f9ff;
+  transform: translateY(-2px);
+}
+
+#donation li.failed {
+  border-left-color: #f44336;
+}
+
+#donation li.pending {
+  border-left-color: #ff9800;
+}
+
+#download {
+  display: block;
+  margin: 30px auto;
+  padding: 12px 24px;
+  background-color: #1565c0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#download:hover {
+  background-color: #0d47a1;
+}

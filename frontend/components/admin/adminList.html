@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Charity Organisations</title>
+    <link rel="stylesheet" href="adminList.css" />
+  </head>
+  <body>
+    <div style="margin: 10px">
+      <button
+        id="app"
+        style="
+          padding: 16px;
+          margin-left: 20px;
+          border: none;
+          background-color: rgb(223, 89, 89);
+          color: white;
+          border-radius: 10px;
+          font-weight: bold;
+        "
+      >
+        Go To App
+      </button>
+      <button
+        id="logout"
+        style="
+          padding: 16px;
+          margin-left: 20px;
+          border: none;
+          background-color: rgb(89, 223, 212);
+          color: white;
+          border-radius: 10px;
+          font-weight: bold;
+        "
+      >
+        Logout
+      </button>
+    </div>
+
+    <div id="admin">
+      <h1>Admin List</h1>
+      <ul></ul>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="adminList.js"></script>
+  <script src="adminButton.js"></script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="adminOrg.css">
+    <title>Charity Organisations</title>
+  </head>
+  <body>
+    <div style="margin: 10px">
+      <button
+        id="app"
+        style="
+          padding: 16px;
+          margin-left: 20px;
+          border: none;
+          background-color: rgb(223, 89, 89);
+          color: white;
+          border-radius: 10px;
+          font-weight: bold;
+        "
+      >
+        Go To App
+      </button>
+      <button
+      id="logout"
+        style="
+          padding: 16px;
+          margin-left: 20px;
+          border: none;
+          background-color: rgb(89, 223, 212);
+          color: white;
+          border-radius: 10px;
+          font-weight: bold;
+        "
+      >
+        Logout
+      </button>
+    </div>
+
+    <div class="container">
+      <div class="section">
+        <h1>Pending Organisations</h1>
+        <ul></ul>
+      </div>
+      <div class="section">
+        <h1>Approved Organisations</h1>
+        <ul></ul>
+      </div>
+      <div class="section">
+        <h1>Rejected Organisations</h1>
+        <ul></ul>
+      </div>
+    </div>
+  
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="adminOrg.js"></script>
+  </body>
+  
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="adminOrg.js"></script>
+  <script src="adminButton.js"></script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="adminRegister.css" />
+
+    <title>Charity App</title>
+  </head>
+  <body>
+    <div>
+      <h1>Admin Sign-up</h1>
+
+      <form
+        action=""
+        onsubmit="handleSubmit(event)"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <label for="username">Admin Name: </label>
+        <input type="text" name="username" id="username" />
+
+        <label for="email">Admin Email: </label>
+        <input type="email" name="email" id="email" />
+
+        <label for="password">Password: </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          autocomplete="new-password"
+        />
+
+        <label for="phone">Phone: </label>
+        <input type="tel" name="phone" id="phone" />
+
+        <button>Sign-up</button>
+        <a href="./adminLogin.html">Admin Login!</a>
+      </form>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="adminRegister.js"></script>
+</html>

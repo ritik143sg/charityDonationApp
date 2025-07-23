@@ -6,6 +6,7 @@ const User = require("../models/userModel");
 const sendEmail = require("../services/emailService");
 const AWS = require("aws-sdk");
 const dotenv = require("dotenv");
+const sequelize = require("../utils/DB/connectDB");
 dotenv.config();
 
 function uploadToS3(data, fileName) {
@@ -68,7 +69,7 @@ const authentication = async (req, res) => {
 
     res.status(200).json({
       msg: "User LogIn",
-      token: await getToken(DBuser),
+      token: await getToken(DBuser, "user"),
     });
   } catch (error) {
     res.status(500).json({
@@ -78,7 +79,11 @@ const authentication = async (req, res) => {
 };
 
 const register = async (req, res) => {
+  console.log(req.body);
+
   const user = req.body;
+
+  const transaction = await sequelize.transaction();
 
   if (!user.email || !user.password || !user.username) {
     res.status(404).json({
@@ -98,26 +103,33 @@ const register = async (req, res) => {
     });
 
     if (DBuser) {
-      res.status(200).json({
+      res.status(500).json({
         msg: "User Exist already",
+        file: file,
       });
     }
 
-    const response = await User.create({
-      username: user.username,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      password: encryptedPassword,
-    });
+    const response = await User.create(
+      {
+        username: user.username,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        password: encryptedPassword,
+      },
+      transaction
+    );
 
     console.log(response);
 
+    await transaction.commit();
     res.status(200).json({
       msg: "User register",
     });
   } catch (error) {
+    await transaction.rollback();
     res.status(500).json({
       msg: error.message,
+      file: file,
     });
   }
 };
@@ -183,15 +195,13 @@ const updatePassword = async (req, res) => {
   }
 };
 
-const updateProfilePic = async (req, res) => {};
-
 const searchProject = async (req, res) => {
   const input = req.query.input;
 
   console.log(input);
 
   try {
-    const project = await Project.findOne({
+    const project = await Project.findAll({
       where: {
         projectName: {
           [Op.like]: `%${input}%`,
@@ -218,8 +228,8 @@ const fileDownload = async (req, res) => {
     });
 
     const stringDonation = JSON.stringify(donation);
-    const fileName = `Donation_${user.id}_${Date.now()}.txt`; // unique filename
-    const fileUrl = await uploadToS3(stringDonation, fileName); // await here
+    const fileName = `Donation_${user.id}_${Date.now()}.txt`;
+    const fileUrl = await uploadToS3(stringDonation, fileName);
 
     res.status(201).json({
       msg: "File retrieved",
@@ -234,13 +244,55 @@ const fileDownload = async (req, res) => {
   }
 };
 
+const getUserDetails = async (req, res) => {
+  const user = req.user;
+
+  try {
+    const DBuser = await User.findByPk(user.id, {
+      attributes: { exclude: ["password"] },
+    });
+
+    res.json({
+      msg: "User Details",
+      user: DBuser,
+    });
+  } catch (error) {
+    res.json({
+      msg: "Error",
+      error: error.message,
+    });
+  }
+};
+
+const getAllUser = async (req, res) => {
+  try {
+    const users = await User.findAll();
+
+    res.status(200).json({ msg: "All Users", users: users });
+  } catch (error) {
+    res.status(500).json({ msg: "Error", error: error.message });
+  }
+};
+
+const getAllDonation = async (req, res) => {
+  try {
+    const donation = await Donation.findAll();
+
+    res.status(200).json({ msg: "All Users", donations: donation });
+  } catch (error) {
+    res.status(500).json({ msg: "Error", error: error.message });
+  }
+};
+
 module.exports = {
   authentication,
   register,
   donation,
   donationHistory,
   updatePassword,
-  updateProfilePic,
   searchProject,
   fileDownload,
+  getUserDetails,
+  getAllUser,
+  getAllDonation,
 };

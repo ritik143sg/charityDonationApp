@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="createProject.css" />
+    <title>Charity App</title>
+  </head>
+  <body>
+    <div>
+      <h1>Create Project</h1>
+      <form action="" onsubmit="handleSubmit(event)">
+        <label for="projectname">projectName: </label>
+
+        <input type="text" name="projectname" id="projectname" required />
+
+        <label for="location">location: </label>
+        <input type="text" name="location" id="location" required />
+
+        <label for="target">targetMoney: </label>
+        <input type="text" name="target" id="target" required />
+
+        <label for="desc">desc: </label>
+        <input type="text" name="desc" id="desc" required />
+
+        <label for="category">Category: </label>
+        <input type="text" name="category" id="category" required />
+        <button>Submit</button>
+
+        <a href="./orgPage.html">Orgs-Page</a>
+      </form>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="createproject.js"></script>
+</html>

@@ -1,5 +1,7 @@
 const { encryptPassword, comparePassword } = require("../middleware/bcrypt");
+const { getToken } = require("../middleware/jwt");
 const { CharityOrg, Project } = require("../models");
+const sequelize = require("../utils/DB/connectDB");
 
 const authOrgs = async (req, res) => {
   const org = req.body;
@@ -7,7 +9,7 @@ const authOrgs = async (req, res) => {
   try {
     const DBorg = await CharityOrg.findOne({
       where: {
-        orgMail: org.orgMail,
+        email: org.email,
       },
     });
 
@@ -19,7 +21,7 @@ const authOrgs = async (req, res) => {
       res.status(500).json({ msg: "Password Miss Match" });
     }
 
-    res.status(200).json({ msg: "Org Login" });
+    res.status(200).json({ msg: "Org Login", orgId: DBorg.id });
   } catch (error) {
     res.status(500).json({ msg: "Error", error: error.message });
   }
@@ -27,23 +29,28 @@ const authOrgs = async (req, res) => {
 
 const registerCharityOrg = async (req, res) => {
   const charity = req.body;
-
+  const transaction = await sequelize.transaction();
   try {
     const hashPass = await encryptPassword(charity.orgPassword);
 
     console.log(hashPass);
 
-    const response = await CharityOrg.create({
-      orgName: charity.orgName,
-      orgMail: charity.orgMail,
-      orgPassword: hashPass,
-      mission: charity.mission,
-      goals: charity.goals,
-      office: charity.office,
-    });
+    const response = await CharityOrg.create(
+      {
+        username: charity.username,
+        email: charity.email,
+        orgPassword: hashPass,
+        mission: charity.mission,
+        goals: charity.goals,
+        office: charity.office,
+      },
+      transaction
+    );
 
+    await transaction.commit();
     res.status(200).json({ msg: "Org Added", charity: response });
   } catch (error) {
+    await transaction.rollback();
     res.status(500).json({ msg: "Error", Error: error.message });
   }
 };
@@ -51,21 +58,25 @@ const registerCharityOrg = async (req, res) => {
 const createProject = async (req, res) => {
   const project = req.body;
   const id = req.params.id;
-
+  const transaction = await sequelize.transaction();
   try {
-    const response = await Project.create({
-      projectName: project.projectName,
-      location: project.location,
-      targetMoney: project.targetMoney,
-      currentMoney: project.currentMoney,
-      desc: project.desc,
-      ImpactReport: project.ImpactReport,
-      category: project.category,
-      CharityId: id,
-    });
-
+    const response = await Project.create(
+      {
+        projectName: project.projectName,
+        location: project.location,
+        targetMoney: project.targetMoney,
+        currentMoney: project.currentMoney,
+        desc: project.desc,
+        ImpactReport: project.ImpactReport,
+        category: project.category,
+        CharityId: id,
+      },
+      transaction
+    );
+    await transaction.commit();
     res.status(200).json({ msg: "Org Added", project: response });
   } catch (error) {
+    await transaction.rollback();
     res.status(500).json({ msg: "Error", Error: error.message });
   }
 };
@@ -102,13 +113,18 @@ const charityInfo = async (req, res) => {
 
 const updateProject = async (req, res) => {
   const project = req.body;
-
+  const transaction = await sequelize.transaction();
   try {
-    await Project.update({
-      status: project.status,
-    });
+    await Project.update(
+      {
+        status: project.status,
+      },
+      transaction
+    );
+    await transaction.commit();
     res.status(200).json({ msg: "Project Updated " });
   } catch (error) {
+    await transaction.rollback();
     res.status(200).json({ msg: "Error", Error: error.message });
   }
 };
@@ -143,15 +159,41 @@ const updateCharity = () => {};
 
 const deleteProject = async (req, res) => {
   const projectId = req.params.id;
-
+  const transaction = await sequelize.transaction();
   try {
     await Project.destroy({
       where: {
         id: projectId,
       },
+      transaction,
     });
+    transaction.commit();
     res.status(200).json({ msg: "Project Deleted" });
   } catch (error) {
+    await transaction.rollback();
+    res.status(500).json({ msg: "Error", error: error.message });
+  }
+};
+
+const editReport = async (req, res) => {
+  const projectId = req.params.id;
+  const data = req.body;
+
+  const transaction = await sequelize.transaction();
+  try {
+    await Project.update(
+      { ImpactReport: data.report },
+      {
+        where: {
+          id: projectId,
+        },
+        transaction,
+      }
+    );
+    transaction.commit();
+    res.status(200).json({ msg: "Project updated" });
+  } catch (error) {
+    await transaction.rollback();
     res.status(500).json({ msg: "Error", error: error.message });
   }
 };
@@ -167,4 +209,5 @@ module.exports = {
   authOrgs,
   getAllProject,
   deleteProject,
+  editReport,
 };

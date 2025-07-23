@@ -2,13 +2,14 @@ const jwt = require("jsonwebtoken");
 
 const jwtKey = "ritiksg143";
 
-const getToken = async (user) => {
+const getToken = async (user, role) => {
   console.log(user);
   const token = jwt.sign(
     {
       id: user.id,
       username: user.username,
       email: user.email,
+      role: role,
     },
 
     jwtKey,

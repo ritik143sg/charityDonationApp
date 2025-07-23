@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="adminDashBoard.css" />
+  </head>
+  <body>
+    <div style="margin: 10px">
+      <button
+        id="app"
+        style="
+          padding: 16px;
+          margin-left: 20px;
+          border: none;
+          background-color: rgb(223, 89, 89);
+          color: white;
+          border-radius: 10px;
+          font-weight: bold;
+        "
+      >
+        Go To App
+      </button>
+      <button
+        id="logout"
+        style="
+          padding: 16px;
+          margin-left: 20px;
+          border: none;
+          background-color: rgb(89, 223, 212);
+          color: white;
+          border-radius: 10px;
+          font-weight: bold;
+        "
+      >
+        Logout
+      </button>
+    </div>
+
+    <h1
+      style="justify-content: center; display: flex; color: rgb(201, 53, 189)"
+    >
+      Admin Dashboard
+    </h1>
+
+    <div class="container">
+      <div id="org" class="box">Organisations</div>
+      <div id="project" class="box">Projects</div>
+      <div id="user" class="box">Users</div>
+      <div
+        id="admin"
+        style="background-color: rgb(92, 168, 92)"
+        id="user"
+        class="box"
+      >
+        Admin
+      </div>
+      <div id="totalDonation" class="box donation-box">
+        <p>Total Donation till Now</p>
+        <h1 id="money">₹0</h1>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="adminDashBoard.js"></script>
+    <script src="adminButton.js"></script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/frontend/index.css" />
+    <title>Charity Donation App</title>
+  </head>
+
+  <body>
+    <div class="body">
+      <div class="header">
+        <h3>Charity Donation App</h3>
+        <input
+          type="text"
+          name="search"
+          id="search"
+          style="margin-left: 10px"
+        />
+        <button id="searchButton">Search</button>
+        <button id="login"></button>
+      </div>
+
+      <div class="mid" id="orgList"></div>
+
+      <div class="footer">Thank you for supporting!</div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/frontend/index.js"></script>
+  <script src="/frontend/components/charity/charityOrgs.js"></script>
+</html>

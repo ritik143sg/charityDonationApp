@@ -27,6 +27,7 @@ const Admin = sequelize.define("Admin", {
   image: {
     type: DataTypes.STRING,
     allowNull: false,
+    defaultValue: "",
   },
 });
 
