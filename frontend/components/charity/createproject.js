@@ -28,7 +28,7 @@ const handleSubmit = async (event) => {
       `http://localhost:5000/charity/createproject/${orgId}`,
       data
     );
-
+    window.location.href = "./orgPage.html";
     console.log(res.data);
   } catch (error) {
     console.log(error);
