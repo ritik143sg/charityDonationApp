@@ -1,17 +1,7 @@
 const ul = document.querySelector("ul");
 
-const app = document.getElementById("app");
-
-app.addEventListener("click", () => {
-  window.location.href = "/frontend/index.html";
-});
-
 const displayOrgDetails = (org) => {
   const li = document.createElement("li");
-
-  li.addEventListener("click", () => {
-    window.location.href = "./orgProject.html";
-  });
 
   li.innerHTML = `
     <h3>${org.username}</h3>
@@ -19,7 +9,11 @@ const displayOrgDetails = (org) => {
     <p><strong>office:</strong> ${org.office}</p>
     <p><strong>orgMail:</strong> ${org.email}</p>
     <p><strong>goals:</strong> ${org.goals}</p>
+   
   `;
+  li.addEventListener("click", () => {
+    window.location.href = "./orgProject.html";
+  });
 
   ul.appendChild(li);
 };

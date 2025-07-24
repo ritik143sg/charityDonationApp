@@ -105,7 +105,6 @@ const register = async (req, res) => {
     if (DBuser) {
       res.status(500).json({
         msg: "User Exist already",
-        file: file,
       });
     }
 
@@ -129,7 +128,6 @@ const register = async (req, res) => {
     await transaction.rollback();
     res.status(500).json({
       msg: error.message,
-      file: file,
     });
   }
 };
@@ -284,6 +282,24 @@ const getAllDonation = async (req, res) => {
   }
 };
 
+const updateProfile = async (req, res) => {
+  const user = req.user;
+  const profile = req.body;
+
+  try {
+    //const DBuser = await User.findByPk(user.id);
+
+    await User.update(
+      { username: profile.username, phoneNumber: profile.phoneNumber },
+      { where: { id: user.id } }
+    );
+
+    res.status(200).json({ msg: "User Updated Successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: "Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   authentication,
   register,
@@ -295,4 +311,5 @@ module.exports = {
   getUserDetails,
   getAllUser,
   getAllDonation,
+  updateProfile,
 };

@@ -3,6 +3,12 @@ const pending = document.getElementById("pending");
 
 const approve = document.getElementById("approve");
 
+const logout = document.getElementById("logout");
+
+logout.addEventListener("click", () => {
+  window.location.href = "./adminLogin.html";
+});
+
 const displayOrgs = (lists) => {
   const ul = document.querySelectorAll("ul");
   ul[0].innerHTML = "";

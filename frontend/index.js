@@ -5,7 +5,15 @@ const orgs = document.getElementById("Orgs");
 const search = document.getElementById("search");
 const searchButton = document.getElementById("searchButton");
 
+const admin = document.getElementById("admin");
+
+admin.addEventListener("click", () => {
+  localStorage.clear();
+  window.location.href = "/frontend/components/admin/adminLogin.html";
+});
+
 orgs.addEventListener("click", () => {
+  localStorage.clear();
   window.location.href = "/frontend/components/charity/orgLogin.html";
 });
 

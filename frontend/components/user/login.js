@@ -1,3 +1,5 @@
+const result = document.getElementById("result");
+
 const handleSubmit = async (event) => {
   event.preventDefault();
 
@@ -28,6 +30,8 @@ const handleSubmit = async (event) => {
 
     event.target.reset();
   } catch (error) {
-    console.error("Registration failed:", error);
+    result.innerHTML = `${error.response.data.msg}`;
+    result.style.color = "red";
+    console.error("Registration failed:", error.response.data);
   }
 };

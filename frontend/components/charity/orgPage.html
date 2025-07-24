@@ -23,6 +23,7 @@
         Go To App
       </button>
       <button
+        id="logout"
         style="
           padding: 16px;
           margin-left: 20px;
@@ -35,6 +36,21 @@
       >
         Logout
       </button>
+      <button
+        onclick="window.location.href='./editOrg.html';"
+        id="report"
+        style="
+          padding: 16px;
+          margin-left: 20px;
+          border: none;
+          background-color: rgb(255, 132, 204);
+          color: white;
+          border-radius: 10px;
+          font-weight: bold;
+        "
+      >
+        Edit
+      </button>
     </div>
     <div>
       <h1>Organazation Page</h1>
@@ -43,4 +59,5 @@
   </body>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="orgPage.js"></script>
+  <script src="../admin/adminButton.js"></script>
 </html>

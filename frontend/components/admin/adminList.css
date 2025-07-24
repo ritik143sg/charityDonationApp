@@ -43,7 +43,7 @@ li:hover {
   background-color: #dfe6e9;
 }
 
-button {
+#delete {
   padding: 8px 16px;
   background-color: #e74c3c;
   color: white;
@@ -53,6 +53,20 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+#delete:hover {
   background-color: #c0392b;
+}
+
+#edit {
+  padding: 8px 16px;
+  background-color: #3ce7cb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#edit:hover {
+  background-color: #2bc0a0;
 }

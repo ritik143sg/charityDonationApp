@@ -6,6 +6,7 @@ const adminRouter = require("./routes/adminRouter");
 const dotenv = require("dotenv");
 const charityRouter = require("./routes/charityRouter");
 const paymentRouter = require("./routes/paymentRouter");
+const path = require("path");
 require("./models/adminModel");
 dotenv.config();
 require("./models/userModel");

@@ -1,21 +1,9 @@
 const ul = document.querySelector("ul");
 
-const logout = document.getElementById("logout");
-const app = document.getElementById("app");
 const addProject = document.getElementById("addProject");
-
-app.addEventListener("click", () => {
-  window.location.href = "/frontend/index.html";
-});
 
 addProject.addEventListener("click", () => {
   window.location.href = "./createproject.html";
-});
-
-logout.addEventListener("click", () => {
-  localStorage.clear();
-
-  window.location.href = "./orgLogin.html";
 });
 
 const displayOrgDetails = (orgs) => {

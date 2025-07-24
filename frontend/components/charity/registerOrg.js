@@ -1,3 +1,5 @@
+const result = document.getElementById("result");
+
 const handleSubmit = async (event) => {
   event.preventDefault();
 
@@ -28,8 +30,15 @@ const handleSubmit = async (event) => {
       data
     );
 
+    result.innerText = `${res.data.msg}`;
+    result.style.color = "green";
+
     console.log(res.data);
+
+    event.target.reset();
   } catch (error) {
+    result.innerText = `${error.response.data.msg}`;
+    result.style.color = "red";
     console.log(error);
   }
 };

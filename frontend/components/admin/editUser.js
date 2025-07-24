@@ -1,4 +1,5 @@
 const result = document.getElementById("result");
+
 const handelSubmit = async (event) => {
   event.preventDefault();
 
@@ -18,10 +19,10 @@ const handelSubmit = async (event) => {
     };
 
     try {
-      const token = JSON.parse(localStorage.getItem("token"));
+      const token = JSON.parse(localStorage.getItem("admintoken"));
 
       const res = await axios.patch(
-        "http://localhost:5000/user/updatePassword",
+        "http://localhost:5000/admin/updatePassword",
         data,
         {
           headers: {
@@ -29,7 +30,7 @@ const handelSubmit = async (event) => {
           },
         }
       );
-      window.location.href = "./login.html";
+      window.location.href = "./adminLogin.html";
       console.log(res.data);
     } catch (error) {
       result.innerHTML = "";

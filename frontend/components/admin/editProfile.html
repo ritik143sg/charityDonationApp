@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="editprofile.css" />
+    <title>Charity App</title>
+  </head>
+  <body>
+    <form onsubmit="handelSubmit(event)">
+      <h1>Change Profile</h1>
+      <label for="username">Username: </label>
+      <input type="text" name="username" id="username" required />
+      <br /><br />
+      <label for="phoneNo">PhoneNumber: </label>
+      <input type="tel" name="phoneNo" id="phoneNo" required />
+      <br /><br />
+      <button>Submit</button>
+      <p></p>
+    </form>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="editProfile.js"></script>
+</html>

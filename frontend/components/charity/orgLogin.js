@@ -1,3 +1,5 @@
+const result = document.getElementById("result");
+
 const handleSubmit = async (event) => {
   event.preventDefault();
 
@@ -22,14 +24,20 @@ const handleSubmit = async (event) => {
 
     localStorage.setItem("orgId", JSON.stringify(response.data.orgId));
 
-    // const token = response.data.token;
+    const token = response.data.token;
 
-    // localStorage.setItem("orgtoken", JSON.stringify(token));
+    localStorage.setItem("orgtoken", JSON.stringify(token));
+
+    result.innerText = `${response.data.msg}`;
+
+    result.style.color = "green";
 
     window.location.href = "./orgPage.html";
 
     event.target.reset();
   } catch (error) {
+    result.innerText = `${error.response.data.msg}`;
+    result.style.color = "red";
     console.error("Registration failed:", error);
   }
 };

@@ -1,3 +1,4 @@
+const result = document.getElementById("result");
 const handleSubmit = async (event) => {
   event.preventDefault();
 
@@ -5,7 +6,6 @@ const handleSubmit = async (event) => {
   const email = event.target.email.value;
   const phone = event.target.phone.value;
   const password = event.target.password.value;
-  // const file = event.target.file.files[0];
 
   console.log(username, email, phone, password);
 
@@ -23,9 +23,13 @@ const handleSubmit = async (event) => {
     );
 
     console.log(response);
+    result.innerHTML = `${response.data.msg}`;
+    result.style.color = "green";
 
     event.target.reset();
   } catch (error) {
+    result.innerHTML = `${error.response.data.msg}`;
+    result.style.color = "red";
     console.error("Registration failed:", error);
   }
 };

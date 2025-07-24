@@ -1,3 +1,5 @@
+const result = document.getElementById("result");
+
 const handleSubmit = async (event) => {
   event.preventDefault();
 
@@ -21,10 +23,15 @@ const handleSubmit = async (event) => {
 
     localStorage.setItem("admintoken", JSON.stringify(token));
 
+    localStorage.setItem("adminEmail", JSON.stringify(email));
+
     window.location.href = "./adminDashBoard.html";
 
     event.target.reset();
   } catch (error) {
+    result.innerText = `${error.response.data.msg}`;
+
+    result.style.color = "red";
     console.error("Registration failed:", error);
   }
 };

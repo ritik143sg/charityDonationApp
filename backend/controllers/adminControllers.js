@@ -68,7 +68,7 @@ const registerAdmin = async (req, res) => {
     });
 
     if (DBadmin) {
-      res.status(200).json({
+      res.status(500).json({
         msg: "Admin Exist already",
       });
     }
@@ -247,6 +247,85 @@ const getAllAdmin = async (req, res) => {
   }
 };
 
+const deleteAdmin = async (req, res) => {
+  const adminId = req.params.id;
+
+  try {
+    await Admin.destroy({
+      where: {
+        id: adminId,
+      },
+    });
+    res.status(200).json({
+      msg: "admin deleted ",
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: error.message,
+    });
+  }
+};
+
+const adminDetails = async (req, res) => {
+  const admin = req.user;
+
+  console.log("pppppppppp", req);
+
+  try {
+    const adminUser = await Admin.findByPk(admin.id);
+    res.status(200).json({
+      msg: "get admin  ",
+      admin: adminUser,
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: error.message,
+    });
+  }
+};
+
+const updatePassword = async (req, res) => {
+  const admin = req.user;
+  const updatePassword = req.body;
+
+  try {
+    const DBuser = await Admin.findByPk(admin.id);
+
+    if (!(await comparePassword(updatePassword.oldPassword, DBuser.password))) {
+      return res.status(400).json({ msg: "Password Mismatch" });
+    }
+
+    const hashedPassword = await encryptPassword(updatePassword.newPassword);
+
+    await Admin.update(
+      { password: hashedPassword },
+      { where: { id: admin.id } }
+    );
+
+    res.status(200).json({ msg: "Password Updated Successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: "Server Error", error: error.message });
+  }
+};
+
+const updateProfile = async (req, res) => {
+  const admin = req.user;
+  const profile = req.body;
+
+  try {
+    //const DBuser = await User.findByPk(user.id);
+
+    await Admin.update(
+      { username: profile.username, phoneNumber: profile.phoneNumber },
+      { where: { id: admin.id } }
+    );
+
+    res.status(200).json({ msg: "User Updated Successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: "Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   authenticationAdmin,
   registerAdmin,
@@ -256,4 +335,8 @@ module.exports = {
   deleteProject,
   deleteUser,
   getAllAdmin,
+  deleteAdmin,
+  adminDetails,
+  updatePassword,
+  updateProfile,
 };

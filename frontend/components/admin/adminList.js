@@ -1,4 +1,5 @@
 const admintoken = JSON.parse(localStorage.getItem("admintoken"));
+const adminEmail = JSON.parse(localStorage.getItem("adminEmail"));
 const ul = document.querySelector("ul");
 
 const displayUsers = (lists) => {
@@ -8,11 +9,21 @@ const displayUsers = (lists) => {
     const button = document.createElement("button");
 
     button.innerText = "Delete";
+    button.id = "delete";
+
+    const editbutton = document.createElement("button");
+
+    editbutton.innerText = "Profile";
+    editbutton.id = "edit";
+
+    editbutton.addEventListener("click", async () => {
+      window.location.href = "./adminProfile.html";
+    });
 
     button.addEventListener("click", async () => {
       try {
         const res = await axios.delete(
-          `http://localhost:5000/admin/user/${list.id}`,
+          `http://localhost:5000/admin/admin/${list.id}`,
           {
             headers: {
               Authorization: `Bearer ${admintoken}`,
@@ -28,7 +39,12 @@ const displayUsers = (lists) => {
     });
 
     li.innerText = `${list.username}`;
-    li.appendChild(button);
+
+    if (adminEmail != list.email) {
+      li.appendChild(button);
+    } else {
+      li.appendChild(editbutton);
+    }
 
     ul.appendChild(li);
   });

@@ -1,27 +1,21 @@
 const logout = document.getElementById("logout");
-const token = JSON.parse(localStorage.getItem("token"));
+const token = JSON.parse(localStorage.getItem("admintoken"));
 const userDetails = document.getElementById("userDetails");
 const editButton = document.getElementById("editButton");
 const editProfile = document.getElementById("editProfile");
 
-editProfile.addEventListener("click", () => {
-  window.location.href = "/frontend/components/user/editProfile.html";
-});
+// editProfile.addEventListener("click", () => {
+//   window.location.href = "/frontend/components/user/editProfile.html";
+// });
 
-editButton.addEventListener("click", () => {
-  window.location.href = "/frontend/components/user/editUser.html";
-});
-
-const donationHistory = document.getElementById("donationHistory");
-
-donationHistory.addEventListener("click", () => {
-  window.location.href = "/frontend/components/donation/donationHistory.html";
-});
+// editButton.addEventListener("click", () => {
+//   window.location.href = "/frontend/components/user/editUser.html";
+// });
 
 logout.addEventListener("click", () => {
   localStorage.clear();
 
-  window.location.href = "/frontend/components/user/login.html";
+  window.location.href = "/frontend/components/admin/adminLogin.html";
 });
 
 const displayUser = (user) => {
@@ -40,15 +34,15 @@ const displayUser = (user) => {
 
 const initialize = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/user/userdetails", {
+    const res = await axios.get("http://localhost:5000/admin/adminDetails", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    displayUser(res.data.user);
+    console.log(res.data.admin);
 
-    console.log(res.data.user);
+    displayUser(res.data.admin);
   } catch (error) {
     console.log(error);
   }
