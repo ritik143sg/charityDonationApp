@@ -11,6 +11,7 @@ const {
   getAllProject,
   editReport,
   editOrg,
+  deleteProject,
 } = require("../controllers/charityControllers");
 
 const charityRouter = express.Router();
@@ -26,5 +27,6 @@ charityRouter.get("/getAllProjects/:orgId", getAllProject);
 
 charityRouter.patch("/editReport/:id", editReport);
 charityRouter.patch("/editOrg/:id", editOrg);
+charityRouter.delete("/project/:id", deleteProject);
 
 module.exports = charityRouter;

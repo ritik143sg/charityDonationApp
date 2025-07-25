@@ -4,6 +4,18 @@ const userDetails = document.getElementById("userDetails");
 const editButton = document.getElementById("editButton");
 const editProfile = document.getElementById("editProfile");
 
+const body = document.querySelector("body");
+
+window.onload = () => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    body.hidden = false; // Show content if token exists
+  } else {
+    window.location.href = "./login.html"; // Redirect if not logged in
+  }
+};
+
 editProfile.addEventListener("click", () => {
   window.location.href = "/frontend/components/user/editProfile.html";
 });
@@ -39,6 +51,11 @@ const displayUser = (user) => {
 };
 
 const initialize = async () => {
+  if (!token) {
+    body.hidden = false;
+    console.log("ddddddddddd");
+  }
+
   try {
     const res = await axios.get("http://localhost:5000/user/userdetails", {
       headers: {

@@ -28,7 +28,7 @@ const sendEmail = async (req) => {
 
     const receivers = [
       {
-        email: "ritiksg143@gmail.com", // Receiver's email from request body
+        email: req.user.email, // Receiver's email from request body
       },
     ];
 

@@ -1,5 +1,20 @@
 const ul = document.querySelector("ul");
 
+const app = document.getElementById("app");
+
+app.addEventListener("click", () => {
+  localStorage.clear();
+  window.location.href = "/frontend/index.html";
+});
+
+const logoutOrg = document.getElementById("logoutOrg");
+
+logoutOrg.addEventListener("click", () => {
+  localStorage.clear();
+
+  window.location.href = "./orgLogin.html";
+});
+
 const displayOrgDetails = (org) => {
   const li = document.createElement("li");
 
@@ -8,6 +23,7 @@ const displayOrgDetails = (org) => {
     <p><strong>mission:</strong> ${org.mission}</p>
     <p><strong>office:</strong> ${org.office}</p>
     <p><strong>orgMail:</strong> ${org.email}</p>
+     <p><strong>phone:</strong> ${org.phone}</p>
     <p><strong>goals:</strong> ${org.goals}</p>
    
   `;

@@ -56,6 +56,7 @@ const registerCharityOrg = async (req, res) => {
       mission: charity.mission,
       goals: charity.goals,
       office: charity.office,
+      phone: charity.phone,
     });
 
     res.status(200).json({ msg: "Org Added", charity: response });
@@ -144,7 +145,7 @@ const getAllOrgs = async (req, res) => {
     const orgs = await CharityOrg.findAll();
     console.log(orgs);
 
-    res.status(200).json({ msg: "Gets All Orgs", Orgs: orgs });
+    res.status(200).json({ msg: "Gets All Orgs", Orgs: orgs || [] });
   } catch (error) {
     res.status(500).json({ msg: "Error", error: error.message });
   }
@@ -224,7 +225,7 @@ const editOrg = async (req, res) => {
         mission: data.mission,
         goals: data.goals,
         office: data.office,
-        // desc: data.desc,
+        phone: data.phone,
       },
       {
         where: {

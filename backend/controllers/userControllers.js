@@ -201,9 +201,16 @@ const searchProject = async (req, res) => {
   try {
     const project = await Project.findAll({
       where: {
-        projectName: {
-          [Op.like]: `%${input}%`,
-        },
+        [Op.or]: [
+          {
+            projectName: {
+              [Op.like]: `%${input}%`,
+            },
+          },
+          {
+            category: `${input}`,
+          },
+        ],
       },
     });
 

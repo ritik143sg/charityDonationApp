@@ -6,6 +6,10 @@ const goal = document.getElementById("goal");
 const mission = document.getElementById("mission");
 const phoneNo = document.getElementById("phoneNo");
 
+window.addEventListener("DOMContentLoaded", () => {
+  initialize();
+});
+
 const initialize = async () => {
   try {
     const res = await axios.get(
@@ -18,7 +22,7 @@ const initialize = async () => {
     mission.value = org.mission;
     goal.value = org.goals;
     office.value = org.office;
-    phoneNo.value = org.phoneNo;
+    phoneNo.value = org.phone;
   } catch (error) {
     console.log(error);
   }
@@ -29,7 +33,7 @@ btn.addEventListener("click", async () => {
     mission: mission.value,
     goals: goal.value,
     office: office.value,
-    //phoneNo = org.phoneNo;
+    phone: phoneNo.value,
   };
   console.log(data);
 

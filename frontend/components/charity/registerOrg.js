@@ -18,7 +18,7 @@ const handleSubmit = async (event) => {
     username: orgname,
     email: orgemail,
     orgPassword: password,
-    //  phone: phone,
+    phone: phone,
     mission: mission,
     goals: goals,
     office: office,
